@@ -5,7 +5,7 @@
 
 ## Description
 
-This workout tracker application lets you keep track of the exercises you have accomplished over the course of a week. By using a Mongodb database and Mongoose, the user is able to add different types of exercises, update them, and keep track of their exercises by means of clean, interactive charts and forms. This app utilizes MongoDB, Mongoose, Express, Express router, Node.js, and more.
+This budget tracker application lets you keep track of your expenses online and offline. If you lose internet connection, no worries! This app will still record your expenses and when an internet connection is established, it will send all of the stored, offline data to the database to be permanently stored. By using a Mongodb database and Mongoose, the user is able to add any money they have gained or spent and keep track of their expenses by means of a clean, interactive chart. This app utilizes MongoDB, Mongoose, IndexedDb, Express, Express router, Node.js, and more.
 
 ## [Click Here to check it out!](https://young-woodland-55260.herokuapp.com/)
 

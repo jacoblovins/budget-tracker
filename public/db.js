@@ -1,9 +1,8 @@
 let db;
-// create a new db request for a "budget" database.
 const request = indexedDB.open("budget", 1);
 
+// Create object store
 request.onupgradeneeded = function(event) {
-   // create object store called "pending" and set autoIncrement to true
   const db = event.target.result;
   db.createObjectStore("pending", { autoIncrement: true });
 };
@@ -21,25 +20,20 @@ request.onerror = function(event) {
   console.log("Something Went Wrong! " + event.target.errorCode);
 };
 
+// create a transaction on the pending db, access the object store and add record
 function saveRecord(record) {
-  // create a transaction on the pending db with readwrite access
   const transaction = db.transaction(["pending"], "readwrite");
-
-  // access your pending object store
   const store = transaction.objectStore("pending");
-
-  // add record to your store with add method.
   store.add(record);
 }
 
+// Open a transaction on the pending db, access the object store and retrieve records
 function checkDatabase() {
-  // open a transaction on your pending db
   const transaction = db.transaction(["pending"], "readwrite");
-  // access your pending object store
   const store = transaction.objectStore("pending");
-  // get all records from store and set to a variable
   const getAll = store.getAll();
 
+  // If records come back correctly create a POST route
   getAll.onsuccess = function() {
     if (getAll.result.length > 0) {
       fetch("/api/transaction/bulk", {
@@ -52,13 +46,9 @@ function checkDatabase() {
       })
       .then(response => response.json())
       .then(() => {
-        // if successful, open a transaction on your pending db
+        // if successful, Open a transaction on the pending db, access the object store and clear all items in store
         const transaction = db.transaction(["pending"], "readwrite");
-
-        // access your pending object store
         const store = transaction.objectStore("pending");
-
-        // clear all items in your store
         store.clear();
       });
     }

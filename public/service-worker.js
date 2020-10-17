@@ -56,7 +56,7 @@ const FILES_TO_CACHE = [
   
     // handle runtime GET requests for data from /api routes
     if (event.request.url.includes("/api/transaction")) {
-      // make network request and fallback to cache if network request fails (offline)
+      // If network request fails (offline) fall back to cache 
       event.respondWith(
         caches.open(RUNTIME_CACHE).then(cache => {
           return fetch(event.request)
@@ -70,14 +70,14 @@ const FILES_TO_CACHE = [
       return;
     }
   
-    // use cache first for all other requests for performance
+    // use cache first for all other requests
     event.respondWith(
       caches.match(event.request).then(cachedResponse => {
         if (cachedResponse) {
           return cachedResponse;
         }
   
-        // request is not in cache. make network request and cache the response
+        // Make network request and cache the response
         return caches.open(RUNTIME_CACHE).then(cache => {
           return fetch(event.request).then(response => {
             return cache.put(event.request, response.clone()).then(() => {

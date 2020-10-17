@@ -59,9 +59,9 @@ function populateChart() {
     myChart.destroy();
   }
 
-  const ctx = document.getElementById("my-chart").getContext("2d");
+  let ctx = document.getElementById("myChart").getContext("2d");
 
-  myChart = new Chart(ctx, {
+  myChart = new Chart(ctx, { 
     type: "line",
     data: {
       labels,
@@ -80,7 +80,7 @@ function populateChart() {
 function sendTransaction(isAdding) {
   const nameEl = document.querySelector("#t-name");
   const amountEl = document.querySelector("#t-amount");
-  const errorEl = document.querySelector("form .error");
+  const errorEl = document.querySelector(".form .error");
 
   // validate form
   if (nameEl.value === "" || amountEl.value === "") {
